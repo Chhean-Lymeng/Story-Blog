@@ -208,7 +208,7 @@
                 </div>
             </div>
 
-            @include('frontend.layouts.sidebar')
+            @include('frontend.website.news_extra')
         </div>
     </div>
 </section>
