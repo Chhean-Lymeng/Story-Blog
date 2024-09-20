@@ -2,11 +2,11 @@
 
 @section('content')
 <style>
-        .centered-button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .centered-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .single-post-media img,
     .blog-content img {
         max-width: 100%;
@@ -14,38 +14,42 @@
         display: block;
         margin: 0 auto;
     }
-
     .single-post-media {
         max-width: 100%;
         overflow: hidden;
     }
-
     .blog-title-area, .blog-meta, .post-sharing {
         text-align: center;
     }
-
     .blog-content {
         text-align: justify;
         line-height: 1.6;
         letter-spacing: 0.5px;
     }
-
     .text-warning {
         color: #ffc107 !important;
+    }
+    .ad-container {
+        width: 100%;
+        margin: 0 auto; /* Center the ad */
     }
 </style>
 
 <section class="section single-wrapper">
-    <div class="container"><script type="text/javascript">
-        atOptions = {
-            'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
-            'format' : 'iframe',
-            'height' : 90,
-            'width' : 728,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
+    <div class="container">
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : '100%', // Change to '100%' for full width
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
+        </div>
+
         <div class="row">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <div class="page-wrapper">
@@ -116,7 +120,6 @@
                             <div class="col-lg-6">
                                 <div class="card h-100 d-flex flex-column">
                                     <a href="{{ route('news.show', $prevNews ? $prevNews->id : $news->id) }}" class="d-flex flex-column flex-grow-1 text-decoration-none">
-                                        <!-- Content Area -->
                                         <div class="d-flex flex-column flex-grow-1 p-3">
                                             <img src="{{ asset('storage/news/thumbnail/' . ($prevNews ? $prevNews->thumbnail : $news->thumbnail)) }}" alt=""
                                                 class="img-thumbnail w-100 mb-3"
@@ -139,7 +142,6 @@
                             <div class="col-lg-6">
                                 <div class="card h-100 d-flex flex-column">
                                     <a href="{{ route('news.show', $nextNews ? $nextNews->id : $news->id) }}" class="d-flex flex-column flex-grow-1 text-decoration-none">
-                                        <!-- Content Area -->
                                         <div class="d-flex flex-column flex-grow-1 p-3">
                                             <img src="{{ asset('storage/news/thumbnail/' . ($nextNews ? $nextNews->thumbnail : $news->thumbnail)) }}" alt=""
                                                 class="img-thumbnail w-100 mb-3"
@@ -149,8 +151,6 @@
                                                 <h5 class="card-title mb-1">{{ $nextNews ? $nextNews->title : $news->title }}</h5>
                                             </div>
                                         </div>
-
-                                        <!-- Button Area -->
                                         <div class="p-3 centered-button-container">
                                             <a href="{{ route('news.show', $nextNews ? $nextNews->id : $news->id) }}" class="btn btn-primary centered-button">
                                                 Next Post
@@ -161,7 +161,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <hr class="invis1">
 
@@ -192,13 +191,11 @@
                             <div class="col-lg-12">
                                 <div class="comments-list">
                                     @foreach ($news->comments as $comment)
-                                        <div class="media mb-3 p-3 rounded" style="background-color: #f8f9fa;">
-                                            <a class="media-left mr-3" href="#">
-                                                <img src="{{ asset('path/to/default/image.jpg') }}" alt="" class="rounded-circle" style="width: 50px; height: 50px;">
-                                            </a>
+                                        <div class="media">
                                             <div class="media-body">
-                                                <h5 class="media-heading user_name mb-1">{{ $comment->name ?? 'Anonymous' }} <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small></h5>
-                                                <p class="mb-0">{{ $comment->content }}</p>
+                                                <h5 class="media-heading">{{ $comment->author_name }}</h5>
+                                                <p>{{ $comment->content }}</p>
+                                                <p class="date">{{ release_date($comment->created_at) }}</p>
                                             </div>
                                         </div>
                                     @endforeach
@@ -206,26 +203,12 @@
                             </div>
                         </div>
                     </div>
+
                     <hr class="invis1">
-                    <div class="custombox clearfix">
-                        <h4 class="small-title">Leave a reply</h4>
-                        <form role="form" method="post" action="{{ route('comments.store') }}">
-                            @csrf
-                            <input type="hidden" name="news_id" value="{{ $news->id }}">
-                            <div class="form-group">
-                                <label for="name">Name (optional)</label>
-                                <input type="text" class="form-control" id="name" name="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment">Comment</label>
-                                <textarea class="form-control" id="comment" name="comment" rows="6" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Post Comment</button>
-                        </form>
-                    </div>
                 </div>
             </div>
-            @include('frontend.website.news_extra')
+
+            @include('frontend.layouts.sidebar')
         </div>
     </div>
 </section>
