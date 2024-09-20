@@ -66,6 +66,7 @@
                 'params': {}
             };
         </script>
+        </div>
         <section class="section single-wrapper">
             <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
             <div class="row">
