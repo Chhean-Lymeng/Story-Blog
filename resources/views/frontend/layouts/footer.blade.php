@@ -5,7 +5,7 @@
                 <div class="widget">
                     <div class="footer-text text-left">
                         <a href="index.html"><img src="images/version/tech-footer-logo.png" alt="" class="img-fluid"></a>
-                        <p>Daddy News delivers timely, insightful news and features on current events, politics, and lifestyle, keeping you informed and engaged with every story.</p>
+                        <p>Daddy News delivers timely, insightful Story and features on current events, politics, and lifestyle, keeping you informed and engaged with every story.</p>
                         <div class="social">
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
