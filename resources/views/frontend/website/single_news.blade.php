@@ -2,11 +2,11 @@
 
 @section('content')
 <style>
-    .centered-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        .centered-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     .single-post-media img,
     .blog-content img {
         max-width: 100%;
@@ -14,60 +14,37 @@
         display: block;
         margin: 0 auto;
     }
+
     .single-post-media {
         max-width: 100%;
         overflow: hidden;
     }
+
     .blog-title-area, .blog-meta, .post-sharing {
         text-align: center;
     }
+
     .blog-content {
         text-align: justify;
         line-height: 1.6;
         letter-spacing: 0.5px;
     }
+
     .text-warning {
         color: #ffc107 !important;
     }
-    .ad-container {
-        max-width: 100%; /* Ensure the ad does not exceed container width */
-        overflow: hidden; /* Hide any overflow */
-    }
-    @media (max-width: 768px) {
-        .ad-container {
-            width: 100%; /* Ensure the ad takes full width on small screens */
-            height: auto; /* Adjust height as needed */
-        }
-
-        /* Enable horizontal scrolling */
-        .section {
-            overflow-x: auto; /* Allow horizontal scrolling */
-            white-space: nowrap; /* Prevent content from wrapping */
-        }
-
-        /* Ensure child elements are displayed inline */
-        .row {
-            display: inline-block; /* Adjust display to inline-block */
-        }
-    }
 </style>
 
-
-
 <section class="section single-wrapper">
-    <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
-    </div>
-    
+    <div class="container"><script type="text/javascript">
+        atOptions = {
+            'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
     <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
         <div class="row">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
