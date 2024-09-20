@@ -3,18 +3,20 @@
 
 <section class="section first-section">
     <div class="d-flex justify-content-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-        </script>
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '85a7d10931f0a4b936a4aabea9f2bc14',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
+        </div>
     </div>
     
-    <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
     <div class="container-fluid">
         <div class="masonry-blog clearfix">
             @foreach($news->take(2) as $article)
@@ -42,16 +44,19 @@
 
 <section class="section">
     <div class="container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '85a7d10931f0a4b936a4aabea9f2bc14',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
+        </div>
+        
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="page-wrapper">
@@ -98,5 +103,21 @@
         </div><!-- end row -->
     </div>
 </section>
+
+<style>
+.ad-container {
+    width: 100%;
+    max-width: 728px; /* Adjust this value as needed */
+    margin: 0 auto; /* Center the ad */
+    overflow: hidden; /* Prevent overflow */
+}
+
+@media (max-width: 768px) {
+    .ad-container {
+        max-width: 100%; /* Allow full width on smaller screens */
+        height: auto; /* Adjust height as needed */
+    }
+}
+</style>
 
 @endsection
