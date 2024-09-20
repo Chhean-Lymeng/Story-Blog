@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <br>
-                <div class="copyright">&copy; Daddy News <a href="http://html.design">Daddy News</a>.</div>
+                <div class="copyright">&copy; Daddy News <a href="#">Daddy News</a>.</div>
             </div>
         </div>
     </div>

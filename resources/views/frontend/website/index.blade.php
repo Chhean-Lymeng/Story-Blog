@@ -2,9 +2,22 @@
 @section('content')
 
 <section class="section first-section">
+    <div class="d-flex justify-content-center">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+    </div>
+    
+    <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
     <div class="container-fluid">
         <div class="masonry-blog clearfix">
-            @foreach($news->take(3) as $article)
+            @foreach($news->take(2) as $article)
             <div class="first-slot">
                 <div class="masonry-box post-media">
                     <img src="{{ asset('storage/news/thumbnail/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="img-fluid">
@@ -29,11 +42,21 @@
 
 <section class="section">
     <div class="container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
         <div class="row">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <div class="page-wrapper">
                     <div class="blog-top clearfix">
-                        <h4 class="pull-left">Recent News <a href="#"><i class="fa fa-rss"></i></a></h4>
+                        <h4 class="pull-left">Recent Stories <a href="#"><i class="fa fa-rss"></i></a></h4>
                     </div><!-- end blog-top -->
     
                     <div class="blog-list clearfix">

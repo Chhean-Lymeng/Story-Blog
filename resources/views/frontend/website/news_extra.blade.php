@@ -3,12 +3,22 @@
                     <div class="widget">
                         <div class="banner-spot clearfix">
                             <div class="banner-img">
-                                <img src="{{ asset('frontend/upload/banner_07.jpg') }}" alt="" class="img-fluid">
+                                <a target="_blank" href="https://www.cpmrevenuegate.com/hkfp5e6t?key=a384fd79a40a18d5e3214a851ade6db6"><img src="{{ asset('frontend/upload/banner_07.jpg') }}" alt="" class="img-fluid"></a>
                             </div><!-- end banner-img -->
+                            <script type="text/javascript">
+                                atOptions = {
+                                    'key' : '6cec8f60c9f5f9997af20749f68c98e9',
+                                    'format' : 'iframe',
+                                    'height' : 600,
+                                    'width' : 160,
+                                    'params' : {}
+                                };
+                            </script>
                         </div><!-- end banner -->
                     </div><!-- end widget -->
+                    <script type="text/javascript" src="//www.topcreativeformat.com/6cec8f60c9f5f9997af20749f68c98e9/invoke.js"></script>
 
-                    <div class="widget">
+                    {{-- <div class="widget">
                         <h2 class="widget-title">Trend Videos</h2>
                         <div class="trend-videos">
                             <div class="blog-box">
@@ -171,14 +181,14 @@
                                 </a>
                             </div>
                         </div>
-                    </div><!-- end widget -->
+                    </div><!-- end widget --> --}}
 
-                    <div class="widget">
+                    {{-- <div class="widget">
                         <div class="banner-spot clearfix">
                             <div class="banner-img">
                                 <img src="{{ asset('frontend/upload/banner_03.jpg') }}" alt="" class="img-fluid">
                             </div><!-- end banner-img -->
                         </div><!-- end banner -->
-                    </div><!-- end widget -->
+                    </div><!-- end widget --> --}}
                 </div><!-- end sidebar -->
             </div>

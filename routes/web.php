@@ -8,6 +8,7 @@ use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 
 Route::controller(WebsiteController::class)->group(function () {
     Route::get('get-news/{news}', 'get_news')->name('news.show');
@@ -15,6 +16,8 @@ Route::controller(WebsiteController::class)->group(function () {
     Route::get('/', 'get_home')->name('home.get-home');
     Route::get('get-categories', 'get_categories')->name('category.show');
 });
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/a', function () {
     return view('frontend.website.index');
