@@ -30,26 +30,33 @@
         color: #ffc107 !important;
     }
     .ad-container {
-        width: 100%;
-        margin: 0 auto; /* Center the ad */
+        max-width: 100%; /* Ensure the ad does not exceed container width */
+        overflow: hidden; /* Hide any overflow */
+    }
+    @media (max-width: 768px) {
+        .ad-container {
+            width: 100%; /* Ensure the ad takes full width on small screens */
+            height: auto; /* Adjust height as needed */
+        }
     }
 </style>
 
-<section class="section single-wrapper">
-    <div class="container">
-        <div class="ad-container">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : '100%', // Change to '100%' for full width
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
-        </div>
 
+<section class="section single-wrapper">
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '85a7d10931f0a4b936a4aabea9f2bc14',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
+    </div>
+    
+    <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
         <div class="row">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <div class="page-wrapper">
@@ -66,6 +73,14 @@
                             <small><a href="#" title="">{{ release_date($news->published_at) }}</a></small>
                             <small><a href="#" title="">by {{ $user->name }}</a></small>
                             <small><a href="#" title=""><i class="fa fa-eye"></i> {{ $news->views }}</a></small>
+                        </div>
+
+                        <div class="post-sharing">
+                            <ul class="list-inline">
+                                <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="d-none d-md-inline">Share on Facebook</span></a></li>
+                                <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="d-none d-md-inline">Tweet on Twitter</span></a></li>
+                                <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
                         </div>
                     </div>
 
@@ -112,6 +127,7 @@
                             <div class="col-lg-6">
                                 <div class="card h-100 d-flex flex-column">
                                     <a href="{{ route('news.show', $prevNews ? $prevNews->id : $news->id) }}" class="d-flex flex-column flex-grow-1 text-decoration-none">
+                                        <!-- Content Area -->
                                         <div class="d-flex flex-column flex-grow-1 p-3">
                                             <img src="{{ asset('storage/news/thumbnail/' . ($prevNews ? $prevNews->thumbnail : $news->thumbnail)) }}" alt=""
                                                 class="img-thumbnail w-100 mb-3"
@@ -134,6 +150,7 @@
                             <div class="col-lg-6">
                                 <div class="card h-100 d-flex flex-column">
                                     <a href="{{ route('news.show', $nextNews ? $nextNews->id : $news->id) }}" class="d-flex flex-column flex-grow-1 text-decoration-none">
+                                        <!-- Content Area -->
                                         <div class="d-flex flex-column flex-grow-1 p-3">
                                             <img src="{{ asset('storage/news/thumbnail/' . ($nextNews ? $nextNews->thumbnail : $news->thumbnail)) }}" alt=""
                                                 class="img-thumbnail w-100 mb-3"
@@ -143,6 +160,8 @@
                                                 <h5 class="card-title mb-1">{{ $nextNews ? $nextNews->title : $news->title }}</h5>
                                             </div>
                                         </div>
+
+                                        <!-- Button Area -->
                                         <div class="p-3 centered-button-container">
                                             <a href="{{ route('news.show', $nextNews ? $nextNews->id : $news->id) }}" class="btn btn-primary centered-button">
                                                 Next Post
@@ -153,6 +172,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <hr class="invis1">
 
@@ -183,11 +203,13 @@
                             <div class="col-lg-12">
                                 <div class="comments-list">
                                     @foreach ($news->comments as $comment)
-                                        <div class="media">
+                                        <div class="media mb-3 p-3 rounded" style="background-color: #f8f9fa;">
+                                            <a class="media-left mr-3" href="#">
+                                                <img src="{{ asset('path/to/default/image.jpg') }}" alt="" class="rounded-circle" style="width: 50px; height: 50px;">
+                                            </a>
                                             <div class="media-body">
-                                                <h5 class="media-heading">{{ $comment->author_name }}</h5>
-                                                <p>{{ $comment->content }}</p>
-                                                <p class="date">{{ release_date($comment->created_at) }}</p>
+                                                <h5 class="media-heading user_name mb-1">{{ $comment->name ?? 'Anonymous' }} <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small></h5>
+                                                <p class="mb-0">{{ $comment->content }}</p>
                                             </div>
                                         </div>
                                     @endforeach
@@ -195,11 +217,25 @@
                             </div>
                         </div>
                     </div>
-
                     <hr class="invis1">
+                    <div class="custombox clearfix">
+                        <h4 class="small-title">Leave a reply</h4>
+                        <form role="form" method="post" action="{{ route('comments.store') }}">
+                            @csrf
+                            <input type="hidden" name="news_id" value="{{ $news->id }}">
+                            <div class="form-group">
+                                <label for="name">Name (optional)</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="6" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Post Comment</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
             @include('frontend.website.news_extra')
         </div>
     </div>
