@@ -53,7 +53,7 @@
         </script>
         <script type="text/javascript" src="//www.topcreativeformat.com/85a7d10931f0a4b936a4aabea9f2bc14/invoke.js"></script>
         <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="page-wrapper">
                     <div class="blog-top clearfix">
                         <h4 class="pull-left">Recent Stories <a href="#"><i class="fa fa-rss"></i></a></h4>
