@@ -118,7 +118,8 @@
                                 <div class="col-lg-12">
                                     <div class="banner-spot clearfix">
                                         <div class="banner-img">
-                                            <img src="{{ asset('upload/banner_01.jpg') }}" alt="" class="img-fluid">
+                                            <img src="{{ asset('upload/banner_01.jpg') }}" alt=""
+                                                class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -203,8 +204,9 @@
                                                 title="Pinterest"><i class="fa fa-pinterest"></i></a>
                                             <a href="{{ $user->twitter }}" data-toggle="tooltip" data-placement="bottom"
                                                 title="Twitter"><i class="fa fa-twitter"></i></a>
-                                            <a href="{{ $user->instagram }}" data-toggle="tooltip" data-placement="bottom"
-                                                title="Instagram"><i class="fa fa-instagram"></i></a>
+                                            <a href="{{ $user->instagram }}" data-toggle="tooltip"
+                                                data-placement="bottom" title="Instagram"><i
+                                                    class="fa fa-instagram"></i></a>
                                             <a href="{{ $user->website }}" data-toggle="tooltip" data-placement="bottom"
                                                 title="Website"><i class="fa fa-link"></i></a>
                                         </div>
