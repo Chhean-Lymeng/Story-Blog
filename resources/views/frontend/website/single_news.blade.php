@@ -1,5 +1,11 @@
 @extends('frontend.layouts.app')
-
+@section('meta')
+    <meta property="og:title" content="{{ $news->title }}" />
+    <meta property="og:description" content="{{ Str::limit(strip_tags($news->content), 150) }}" />
+    <meta property="og:image" content="{{ asset('storage/news/thumbnail/' . $news->thumbnail) }}" />
+    <meta property="og:url" content="{{ request()->url() }}" />
+    <meta property="og:type" content="article" />
+@endsection
 @section('content')
     <style>
         .centered-button {
