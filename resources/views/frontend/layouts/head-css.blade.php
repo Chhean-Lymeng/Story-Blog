@@ -5,7 +5,7 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="{{ asset('frontend/images/favicon.ico') }}" type="image/x-icon" />
+<link rel="shortcut icon" href="{{ asset('frontend/images/favicon.png') }}" type="image/x-icon" />
 <link rel="apple-touch-icon" href="{{ asset('frontend/images/apple-touch-icon.png') }}">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 <link href="{{ asset('frontend/css/bootstrap.css') }}" rel="stylesheet">
