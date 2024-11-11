@@ -77,7 +77,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    url: '{{ url('/system') }}/' + resource + '/destroy',
+                    url: '{{ url('/') }}/' + resource + '/destroy',
                     type: 'DELETE',
                     dataType: 'JSON',
                     data: {

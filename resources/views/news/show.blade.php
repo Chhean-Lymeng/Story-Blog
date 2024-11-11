@@ -2,7 +2,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('home') }}">@lang('public.home')</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a></li>
             <li class="breadcrumb-item active">@lang('public.news')</li>
         </ol>
     </nav>
