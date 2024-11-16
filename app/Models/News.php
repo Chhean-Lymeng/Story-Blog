@@ -33,4 +33,15 @@ class News extends Model
     {
         return $this->belongsToMany(Tag::class, 'news_tag');
     }
+
+    function news_albums()
+    {
+        return $this->hasMany(NewsAlbum::class)->orderBy('orderby', 'asc');
+    }
+
+    function primary_image()
+    {
+        return $this->hasMany(NewsAlbum::class)
+            ->select('news_id', 'name', 'primary')->where('primary', true);
+    }  
 }

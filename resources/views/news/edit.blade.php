@@ -124,6 +124,11 @@
                                         </span>
                                     @endif
                                 </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('public.photo_album')</label>
+                                        <div action="{{ route('news.isUploaded') }}" class="dropzone"
+                                            id="exampleDropzone"></div>
+                                    </div>
 
                             <!-- Status -->
                             <div class="mb-3">
@@ -165,5 +170,113 @@
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }'
             });
         });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        let files = JSON.parse('{!! $news->news_albums !!}');
+        Dropzone.options.exampleDropzone = {
+            url: `{{ route('news.isUploaded') }}`,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            addRemoveLinks: true,
+            autoProcessQueue: true,
+            acceptedFiles: 'image/*,.jpg,.png,.jpeg',
+            dictDefaultMessage: 'Drop photos here or click to upload.',
+            init: function() {
+                dz = this;
+                files.forEach((file, index) => {
+                    let mockFile = {
+                        name: file.name,
+                        id: file.id
+                    };
+                    let path = '{{ url('storage/image/news/albums') }}' + "/" + file.name;
+
+                    dz.emit("addedfile", mockFile);
+                    dz.emit("thumbnail", mockFile, path);
+                    let previewElement = mockFile.previewElement;
+                    $(previewElement).attr('data-id', file.id);
+
+                    $(mockFile.previewElement).find('img').css({
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'center'
+                    });
+
+                    $(mockFile.previewElement).append(
+                        '<div style="display: flex; justify-content: center; align-items: center; height: 100%;">' +
+                        '<label class="radio-inline primaryImage" style="display: flex; align-items: center; justify-content: center;">' +
+                        '<input type="radio" name="primary" value="' + file.name + '">&nbsp;Primary' +
+                        '</label>' +
+                        '</div>'
+                    );
+                });
+                dz.on('removedfile', function(file) {
+                    $.ajax({
+                        url: `{{ route('news.isDeleted') }}`,
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            id: file.id,
+                            news_id: '{!! $news->id !!}',
+                            name: file.name,
+                        },
+                        success: function(msg) {},
+                        error: function(error) {}
+                    });
+                });
+                const albumList = document.getElementById('exampleDropzone');
+                new Sortable(albumList, {
+                    animation: 150,
+                    onEnd: function(evt) {
+                        saveOrder();
+                    }
+                });
+            },
+            success: function(file, response) {
+                $(file.previewElement).append('<input type="hidden" name="pictures[]" value="' + response.filePath +
+                    '" />');
+                $(file.previewElement).append(
+                    '<div style="display: flex; justify-content: center; align-items: center; height: 100%;">' +
+                    '<label class="radio-inline primaryImage" style="display: flex; align-items: center; justify-content: center;">' +
+                    '<input type="radio" name="primary" value="' + response.filePath + '">&nbsp;Primary' +
+                    '</label>' +
+                    '</div>'
+                );
+                $(file.previewElement).attr('data-id', response.id);
+            },
+            error: function(file) {}
+        };
+
+        function saveOrder() {
+            const order = Array.from(document.querySelectorAll('.dz-preview')).map((item, index) => ({
+                id: item.dataset.id,
+                order: index
+            }));
+            fetch('{{ route('albums.updateOrder') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        albums: order
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
     </script>
 @endsection

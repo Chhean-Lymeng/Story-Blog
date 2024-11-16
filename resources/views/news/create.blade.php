@@ -107,6 +107,11 @@
                                 <textarea class="form-control content" name="content">{{ old('content') }}</textarea>
                             </div>
                             <div class="mb-3">
+                                <label class="form-label">@lang('public.photo_album')</label>
+                                <div action="{{ route('news.isUploaded') }}" class="dropzone"
+                                    id="exampleDropzone"></div>
+                            </div>
+                            <div class="mb-3">
                                 <div class="form-check form-switch">
                                     <input type="checkbox" class="form-check-input" name="status" checked>
                                     <label class="form-check-label">Active</label>
@@ -145,5 +150,82 @@
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }'
             });
         });
+
+        Dropzone.autoDiscover = false;
+        $(document).ready(function() {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            var myDropzone = new Dropzone('#exampleDropzone', {
+                url: '{{ route('news.isUploaded') }}',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                autoProcessQueue: true,
+                addRemoveLinks: true,
+                acceptedFiles: 'image/*,.jpg,.png,.jpeg',
+                dictDefaultMessage: 'Drop photos here or click to upload.',
+                success: function(file, response) {
+                    $(file.previewElement).append('<input type="hidden" name="pictures[]" value="' +
+                        response.filePath + '" />');
+                    $(file.previewElement).append(
+                        '<div style="text-align: center;">' +
+                        '<label class="radio-inline text-center primaryImage" style="display: inline-block;">' +
+                        '<input type="radio" name="primary" value="' + response.filePath + '">' +
+                        '&nbsp;Primary</label>' +
+                        '</div>'
+                    );
+                    $('.dz-preview').eq(0).find('.primaryImage input').prop('checked', true);
+                },
+                init: function() {
+                    this.on('removedfile', function(file) {
+                        var imageName = $(file.previewElement).find('input[name="pictures[]"]');
+                        var name = imageName.val();
+                        if (name) {
+                            $.ajax({
+                                url: '{{ route('news.isRemoved') }}',
+                                type: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': csrfToken
+                                },
+                                data: {
+                                    name: name
+                                }
+                            });
+                        }
+                    });
+                    const albumList = document.getElementById('exampleDropzone');
+                    new Sortable(albumList, {
+                        animation: 150,
+                        onEnd: function(evt) {
+                            saveOrder();
+                        }
+                    });
+                }
+            });
+        });
+
+        function saveOrder() {
+            const order = Array.from(document.querySelectorAll('.dz-preview')).map((item, index) => ({
+                id: item.dataset.id,
+                order: index
+            }));
+            fetch('{{ route('albums.updateOrder') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        albums: order
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
     </script>
 @endsection

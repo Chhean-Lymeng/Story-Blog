@@ -93,12 +93,17 @@ class NewsController extends Controller
     {
         try {
             $responses = News::join('users', 'news.user_id', '=', 'users.id')
+            ->join('news_albums', 'news.id', '=', 'news_albums.news_id')
                 ->select(
                     'news.id',
                     'news.title as news_title',
                     'news.created_at as created_at',
                     'news.content',
+                    'news.count_album',
                     'news.orderby',
+                    'news_albums.id as albums_id',
+                    'news_albums.name as name',
+                    'news_albums.primary',
                     'news.thumbnail',
                     'users.name as user',
                     'users.image as user_profile',
@@ -124,6 +129,12 @@ class NewsController extends Controller
                         $data[$row->id]['user_profile'] = asset("/storage/image/news/user_profile/$row->user_profile");
                     } else {
                         $data[$row->id]['user_profile'] = asset("/assets/images/others/placeholder.jpg");
+                    }
+                    if ($row->count_album) {
+                        $albums[$row->id][$row->albums_id]['albums_id'] = $row->albums_id;
+                        $albums[$row->id][$row->albums_id]['name'] = asset("/storage/image/news/albums/$row->name");
+                        $albums[$row->id][$row->albums_id]['primary'] = $row->primary;
+                        $data[$row->id]['albums'] = array_values($albums[$row->id]);
                     }
                     $data[$row->id]['content'] = $row->content;
                 }

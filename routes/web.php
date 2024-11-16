@@ -42,9 +42,13 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     });
-        Route::controller(App\Http\Controllers\NewsController::class)->group(function () {
-            Route::post('push-notification', 'push_notification')->name('notification.pushed');
-
+    Route::post('/news/isUploaded', [App\Http\Controllers\NewsController::class, 'upload'])->name('news.isUploaded');
+    Route::post('/news/isRemoved', [App\Http\Controllers\NewsController::class, 'remove'])->name('news.isRemoved');
+    Route::post('/news/isDeleted', [App\Http\Controllers\NewsController::class, 'delete'])->name('news.isDeleted');
+    Route::post('/news/toggle-pin', [App\Http\Controllers\NewsController::class, 'togglePin'])->name('news.togglePin');
+    Route::post('/news/albums/update-order', [App\Http\Controllers\NewsController::class, 'updateOrder'])->name('albums.updateOrder');
+    Route::controller(App\Http\Controllers\NewsController::class)->group(function () {
+        Route::post('push-notification', 'push_notification')->name('notification.pushed');
 
         Route::post('news/pushed', [App\Http\Controllers\NewsController::class, 'pushed'])->name('news.pushed');
 
