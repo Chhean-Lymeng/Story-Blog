@@ -13,6 +13,8 @@ Route::controller(App\Http\Controllers\API\NewsController::class)->group(functio
     Route::get('user-news', 'getUserNews');
     Route::get('single-news', 'getSingleNews');
     Route::get('breaking-news', 'getBreakingNews');
-    Route::get('search-news', 'searchNews');    
+    Route::get('search-news', 'searchNews');  
+    Route::post('save-news', 'saveNews');  
+    Route::get('get-save-news', 'fetchSavedNews');  
     Route::post('push-notification', 'push_notification')->name('notification.pushed');
 });

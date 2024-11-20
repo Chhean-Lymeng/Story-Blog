@@ -93,7 +93,7 @@ class NewsController extends Controller
     {
         try {
             $responses = News::join('users', 'news.user_id', '=', 'users.id')
-            ->join('news_albums', 'news.id', '=', 'news_albums.news_id')
+                ->join('news_albums', 'news.id', '=', 'news_albums.news_id')
                 ->select(
                     'news.id',
                     'news.title as news_title',
@@ -322,6 +322,80 @@ class NewsController extends Controller
 
             return $this->normalResponse($data);
 
+        } catch (\Throwable $throwable) {
+            return $this->errorsResponse($throwable);
+        }
+    }
+
+    public function SaveNews(Request $request)
+    {
+        try {
+            // Find the news item by ID
+            $news = News::find($request->id);
+
+            if (!$news) {
+                return $this->noDataAvailable('News item not found');
+            }
+
+            // Toggle the 'save' status
+            $news->save = !$news->save;
+            $news->save();
+
+            $message = $news->save
+            ? "News saved successfully"
+            : "News unsaved successfully";
+
+            return $this->normalResponse($message);
+        } catch (\Throwable $throwable) {
+            return $this->errorsResponse($throwable);
+        }
+    }
+
+    public function fetchSavedNews()
+    {
+        try {
+            // Fetch news data with joins and filters
+            $newsQuery = News::join('categories', 'news.categories_id', '=', 'categories.id') // Fixed join key to use 'category_id'
+                ->join('users', 'news.user_id', '=', 'users.id')
+                ->select(
+                    'news.id',
+                    'news.title as news_title',
+                    'news.created_at',
+                    'news.short_description',
+                    'news.thumbnail',
+                    'news.pin',
+                    'users.name as user',
+                    'users.image as user_profile',
+                    'categories.name as category'
+                )
+                ->where('news.status', true)
+                ->where('news.save', true) // Ensure 'news.save' column exists
+                ->get();
+
+            // Check if data exists
+            if ($newsQuery->isNotEmpty()) {
+                $newsData = $newsQuery->map(function ($row) {
+                    return [
+                        'id' => $row->id,
+                        'category' => $row->category,
+                        'title' => $row->news_title,
+                        'created_at' => release_date($row->created_at),
+                        'short_description' => $row->short_description,
+                        'thumbnail' => $row->thumbnail
+                        ? asset("/storage/news/thumbnail/$row->thumbnail")
+                        : asset("/assets/images/others/placeholder.jpg"),
+                        'user' => $row->user,
+                        'user_profile' => $row->user_profile
+                        ? asset("/storage/news/user/$row->user_profile")
+                        : asset("/assets/images/others/placeholder.jpg"),
+                    ];
+                });
+
+                // Return formatted response
+                return $this->normalResponse($newsData->toArray());
+            }
+
+            return $this->noDataAvailable('No saved news found');
         } catch (\Throwable $throwable) {
             return $this->errorsResponse($throwable);
         }
